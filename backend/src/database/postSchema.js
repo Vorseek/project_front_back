@@ -2,15 +2,18 @@ import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema(
   {
-    text: {
+    postText: {
       type: mongoose.Schema.Types.String,
        required: true
     },
-    id: {
+    userId: {
       type: mongoose.Schema.Types.String,
       required: true,
     },
-
+    postId: {
+      type: mongoose.Schema.Types.String,
+      required: true,
+    }
   }
 )
 

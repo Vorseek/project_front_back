@@ -118,6 +118,6 @@ dist
 .pnp.*
 /frontend/node_modules/
 /frontend/.idea/
-/frontend/node_modules/
 /backend/node_modules/
 /backend/.idea/
+/TypeScript/

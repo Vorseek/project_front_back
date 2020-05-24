@@ -1,4 +1,4 @@
-import {birthDateToFormatDate, hashPassword} from "./helpers.js";
+import { birthDateToFormatDate, hashPassword } from "./helpers.js";
 import Boom from '@hapi/boom';
 import database from './database/connection.js';
 import uuid from 'uuid';
@@ -6,9 +6,8 @@ import jwt from 'jsonwebtoken';
 
 
 export default {
-  register: async ( request, h) => {
+  register: async (request) => {
     try {
-
       const { name, surname, email, password, birthDate } = request.payload;
       const id = uuid.v4();
       const alreadyRegistered = await database.user.findOne({ email });
@@ -36,7 +35,7 @@ export default {
     }
   },
 
-  login: async (request, h) => {
+  login: async (request) => {
     try {
       const { email, password } = request.payload;
 
@@ -53,7 +52,7 @@ export default {
     }
   },
 
-  info: async (request, h) => {
+  info: async (request) => {
     try {
       const searchUserId = await database.user.findOne({ id: request.query.id });
       if (searchUserId) {
@@ -70,7 +69,7 @@ export default {
     }
   },
 
-  editInfo: async (request, h) => {
+  editInfo: async (request) => {
     try {
       const { id, name, surname, email, password, birthDate } = request.query;
 
@@ -92,7 +91,7 @@ export default {
     }
   },
 
-  userDeleted: async (request, h) => {
+  userDeleted: async (request) => {
     try {
       const id = request.query.id;
       if (id) {
@@ -107,12 +106,19 @@ export default {
   },
   postCreate: async (request) => {
     try {
-      const { text, id } = request.payload;
-      await database.post.create({
-        text,
-        id
-      })
-      return 'ok';
+      const { postText, userId } = request.payload;
+      const searchUserId = await database.user.findOne({ id: userId });
+
+      if (searchUserId) {
+        await database.post.create({
+          postText,
+          postId: uuid.v4(),
+          userId,
+        })
+        return 'ok';
+      }
+
+      return Boom.badRequest('Пользователь не найден.');
     } catch (e) {
       console.log(e);
       return Boom.badImplementation('Упс. При создании поста произошла ошибка. Попробуйте позднее.');
