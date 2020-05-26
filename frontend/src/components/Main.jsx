@@ -3,6 +3,8 @@ import Header from "./Header";
 import CarouselBox from "./CarouselBox";
 import Cards from "./Cards";
 import {CardDeck} from "react-bootstrap";
+import Footer from "./footer";
+import Content from "./Content";
 
 
 export default class Main extends React.Component {
@@ -15,20 +17,12 @@ export default class Main extends React.Component {
 
   render() {
     return (
-      <>
+
+      <React.Fragment>
         <Header/>
-        <CarouselBox/>
-        <CardDeck className='m-4'>
-          <Cards/>
-          <Cards/>
-          <Cards/>
-        </CardDeck>
-        <CardDeck className='m-4'>
-          <Cards/>
-          <Cards/>
-          <Cards/>
-        </CardDeck>
-      </>
+        <Content/>
+        <Footer/>
+      </React.Fragment>
 
     )
   }

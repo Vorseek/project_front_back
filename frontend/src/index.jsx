@@ -4,8 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from "./components/Main";
 
 
-
 ReactDOM.render(
-  <Main style={{  }}/>,
+  <Main/>,
   document.getElementById('app'),
 )

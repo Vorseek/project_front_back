@@ -2,41 +2,75 @@ import React from 'react';
 import {
   Navbar,
   Nav,
-  FormControl,
   Container,
   Form,
   Button,
-  Modal
+  Modal,
+  Row,
+  Col
 } from "react-bootstrap";
-import CarouselBox from "./CarouselBox";
 
-// глупый компанент
+
+
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false
+      show: false,
+      showRegistration: false,
+      isLoggedIn: false,
+      userLogin: '',
     }
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+
+
   }
 
-  handleShow() {
+  handleShowLogin() {
     this.setState({
       show: true
-    })
+    });
+  }
+
+  handleShowRegistration() {
+    this.setState({
+      showRegistration: true
+    });
   }
 
   handleClose() {
     this.setState({
-      show: false
+      show: false,
+    });
+  }
+
+  handleCloseRegistration() {
+    this.setState({
+      showRegistration: false,
+    });
+  }
+
+  onInputChange(e) {
+    this.setState({
+      userLogin: e.target.value,
+    });
+  }
+
+  onLoginSuccesses() {
+    this.setState({
+      isLoggedIn: true,
+      show: false,
     })
   }
 
+  onLogout() {
+    this.setState({
+      isLoggedIn: false,
+    })
+  }
 
   render() {
     return (
-      <Navbar fixed='top' collapseOnSelect expand='md' bg={'dark'} variant={'dark'} >
+      <Navbar fixed='top' collapseOnSelect expand='md' bg={'dark'} variant={'dark'}>
         <Container>
           <Navbar.Brand className="brand" href="/">
             {/*<img
@@ -58,41 +92,94 @@ export default class Header extends React.Component {
             <Form inline>
               {/*===========================*/}
               <>
-                <Button variant="outline-info" onClick={this.handleShow}>
-                  Sign in
-                </Button>
-
-                <Modal show={this.state.show} onHide={this.handleClose}>
+                {
+                  this.state.isLoggedIn ?
+                    <>
+                      <Button variant="outline-secondary" className='mr-2' onClick={() => this.onLogout()}>
+                        Out
+                      </Button>
+                    </>
+                    :
+                    <>
+                      <Button variant="outline-secondary" className='mr-2'
+                              onClick={() => this.handleShowRegistration()}>
+                        Sign up
+                      </Button>
+                      <Button variant="outline-info" className='ml-2' onClick={() => this.handleShowLogin()}>
+                        Sign in
+                      </Button>
+                    </>
+                }
+                <Modal show={this.state.show} onHide={() => this.handleClose()}>
                   <Modal.Header closeButton>
                     <Modal.Title>Sign in</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control type="email" placeholder="Enter email"
+                                  onChange={event => this.onInputChange(event)}
+                    /> {/*емаил при логине*/}
                     <Form.Text className="text-muted">
                       We'll never share your email with anyone else.
                     </Form.Text>
                     <Form.Group controlId="formBasicPassword">
                       <Form.Label>Password</Form.Label>
-                      <Form.Control type="password" placeholder="Password" />
+                      <Form.Control type="password" placeholder="Password"/> {/*пас при логине*/}
                     </Form.Group>
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant="secondary" onClick={this.handleClose}>
+                    <Button variant="secondary" onClick={() => this.handleClose()}>
                       Close
                     </Button>
-                    <Button variant="outline-info" onClick={this.handleClose}>
+                    <Button variant="outline-info" onClick={() => this.onLoginSuccesses()}>  {/*кнопка залогиниться*/}
                       Save Changes
                     </Button>
                   </Modal.Footer>
                 </Modal>
               </>
-              {/*==============================*/}
-              {/*<Button*/}
-              {/*  className='button-registration'*/}
-              {/*  variant='outline-info'*/}
-              {/*  onClick={() => alert()}*/}
-              {/*>Регистрация</Button>*/}
+              {/*===========================*/}
+              <Modal show={this.state.showRegistration} onHide={() => this.handleCloseRegistration()}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Sign up</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {/*<Form.Label>Name</Form.Label>*/}
+                  {/*<Form.Control type="name" placeholder="Enter name"/>*/}
+                  {/*<Form.Label>Surname</Form.Label>*/}
+                  {/*<Form.Control type="email" placeholder="Enter surname"/>*/}
+                  <Form>
+                    <Row>
+                      <Col>
+
+                        <Form.Label>First name</Form.Label>
+                        <Form.Control placeholder="First name"/>
+                      </Col>
+                      <Col>
+                        <Form.Label>Last name</Form.Label>
+                        <Form.Control placeholder="Last name"/>
+                      </Col>
+                    </Row>
+                  </Form>
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control type="email" placeholder="Enter email"/>
+                  <Form.Text className="text-muted">
+                    We'll never share your email with anyone else.
+                  </Form.Text>
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password"/>
+                  </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={() => this.handleCloseRegistration()}>
+                    Close
+                  </Button>
+                  <Button variant="outline-info" onClick={() => this.handleCloseRegistration()}>
+                    Save Changes
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+              {/*===========================*/}
             </Form>
           </Navbar.Collapse>
         </Container>
