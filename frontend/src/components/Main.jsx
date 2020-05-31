@@ -21,7 +21,6 @@ export default class Main extends React.Component {
       <React.Fragment>
         <Header/>
         <Content/>
-        <p>world hi</p>
         <Footer/>
       </React.Fragment>
 
