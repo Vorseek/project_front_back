@@ -22,53 +22,54 @@ export default function Header(props) {
   };
 
   return (
-    <Navbar collapseOnSelect expand="md" bg={"dark"} variant={"dark"}>
+    <>
+    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand className="brand" href="/">
           VorseekCompany
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls={"responsive-navbar-nav"} />
-        <Navbar.Collapse id={"responsive-navbar-nav"}>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">{renderMenu()}</Nav>
           <Form inline>
             {/*===========================*/}
-            <>
-              {props.isLoggedIn ? (
-                <>
-                  <Button
-                    variant="outline-secondary"
-                    className="mr-2"
-                    onClick={props.onLogout}
-                  >
-                    Out
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    variant="outline-secondary"
-                    className="mr-2"
-                    onClick={props.handleShowRegistration}
-                  >
-                    Sign up
-                  </Button>
-                  <Button
-                    variant="outline-info"
-                    className="ml-2"
-                    onClick={props.handleShowLogin}
-                  >
-                    Sign in
-                  </Button>
-                </>
-              )}
-              {/* ================================= */}
-              {/* Место для вставки модальных окон */}
-              <ModalLogin
-                show={props.show}
-                handleClose={props.handleClose}
-                onLoginSuccesses={props.onLoginSuccesses}
-              />
-            </>
+
+            {props.isLoggedIn ? (
+              <>
+                <Button
+                  variant="outline-secondary"
+                  className="mr-2"
+                  onClick={props.onLogout}
+                >
+                  Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="outline-secondary"
+                  className="mr-2"
+                  onClick={props.handleShowRegistration}
+                >
+                  Sign up
+                </Button>
+                <Button
+                  variant="outline-info"
+                  className="ml-2"
+                  onClick={props.handleShowLogin}
+                >
+                  Sign in
+                </Button>
+              </>
+            )}
+            {/* ================================= */}
+            {/* Место для вставки модальных окон */}
+            <ModalLogin
+              show={props.show}
+              handleClose={props.handleClose}
+              onLoginSuccesses={props.onLoginSuccesses}
+            />
+
             {/*===========================*/}
             <ModalRegistration
               showRegistration={props.showRegistration}
@@ -79,5 +80,6 @@ export default function Header(props) {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    </>
   );
 }
