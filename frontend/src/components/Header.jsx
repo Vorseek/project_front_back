@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Navbar,
   Nav,
@@ -7,10 +7,8 @@ import {
   Button,
   Modal,
   Row,
-  Col
+  Col,
 } from "react-bootstrap";
-
-
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -19,21 +17,19 @@ export default class Header extends React.Component {
       show: false,
       showRegistration: false,
       isLoggedIn: false,
-      userLogin: '',
-    }
-
-
+      userLogin: "",
+    };
   }
 
   handleShowLogin() {
     this.setState({
-      show: true
+      show: true,
     });
   }
 
   handleShowRegistration() {
     this.setState({
-      showRegistration: true
+      showRegistration: true,
     });
   }
 
@@ -59,122 +55,154 @@ export default class Header extends React.Component {
     this.setState({
       isLoggedIn: true,
       show: false,
-    })
+    });
   }
 
   onLogout() {
     this.setState({
       isLoggedIn: false,
-    })
+    });
   }
 
   render() {
+    
+    const pages = [
+      { pageId: 0, name: "Home" },
+      { pageId: 1, name: "About us" },
+      { pageId: 2, name: "Users" },
+      { pageId: 3, name: "Blog" },
+    ];
+
+    const renderMenu = () => {
+      return pages.map((page, i) => {
+        return (
+          <Nav.Link key={i} onClick={() => this.props.setPage(page.pageId)}>
+            {page.name}
+          </Nav.Link>
+        );
+      });
+    };
+
     return (
-      <Navbar fixed='top' collapseOnSelect expand='md' bg={'dark'} variant={'dark'}>
+      <Navbar collapseOnSelect expand="md" bg={"dark"} variant={"dark"}>
         <Container>
           <Navbar.Brand className="brand" href="/">
-            {/*<img
-              src={logo}
-              height={'30'}
-              width={'30'}
-              className={'d-inline-block align-top'}
-              alt={'Logo'}
-            />*/} VorseekCompany
+            VorseekCompany
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls={'responsive-navbar-nav'}/>
-          <Navbar.Collapse id={'responsive-navbar-nav'}>
-            <Nav className="mr-auto">
-              <Nav.Link href={'/'}>Home</Nav.Link>
-              <Nav.Link href={'/'}>About us</Nav.Link>
-              <Nav.Link href={'/'}>Contacts</Nav.Link>
-              <Nav.Link href={'/'}>Blog</Nav.Link>
-            </Nav>
+          <Navbar.Toggle aria-controls={"responsive-navbar-nav"} />
+          <Navbar.Collapse id={"responsive-navbar-nav"}>
+            <Nav className="mr-auto">{renderMenu()}</Nav>
             <Form inline>
               {/*===========================*/}
               <>
-                {
-                  this.state.isLoggedIn ?
-                    <>
-                      <Button variant="outline-secondary" className='mr-2' onClick={() => this.onLogout()}>
-                        Out
-                      </Button>
-                    </>
-                    :
-                    <>
-                      <Button variant="outline-secondary" className='mr-2'
-                              onClick={() => this.handleShowRegistration()}>
-                        Sign up
-                      </Button>
-                      <Button variant="outline-info" className='ml-2' onClick={() => this.handleShowLogin()}>
-                        Sign in
-                      </Button>
-                    </>
-                }
+                {this.state.isLoggedIn ? (
+                  <>
+                    <Button
+                      variant="outline-secondary"
+                      className="mr-2"
+                      onClick={() => this.onLogout()}
+                    >
+                      Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="outline-secondary"
+                      className="mr-2"
+                      onClick={() => this.handleShowRegistration()}
+                    >
+                      Sign up
+                    </Button>
+                    <Button
+                      variant="outline-info"
+                      className="ml-2"
+                      onClick={() => this.handleShowLogin()}
+                    >
+                      Sign in
+                    </Button>
+                  </>
+                )}
                 <Modal show={this.state.show} onHide={() => this.handleClose()}>
                   <Modal.Header closeButton>
                     <Modal.Title>Sign in</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email"
-                                  onChange={event => this.onInputChange(event)}
-                    /> {/*емаил при логине*/}
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter email"
+                      onChange={(event) => this.onInputChange(event)}
+                    />{" "}
                     <Form.Text className="text-muted">
                       We'll never share your email with anyone else.
                     </Form.Text>
                     <Form.Group controlId="formBasicPassword">
                       <Form.Label>Password</Form.Label>
-                      <Form.Control type="password" placeholder="Password"/> {/*пас при логине*/}
+                      <Form.Control
+                        type="password"
+                        placeholder="Password"
+                      />{" "}
                     </Form.Group>
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant="secondary" onClick={() => this.handleClose()}>
+                    <Button
+                      variant="secondary"
+                      onClick={() => this.handleClose()}
+                    >
                       Close
                     </Button>
-                    <Button variant="outline-info" onClick={() => this.onLoginSuccesses()}>  {/*кнопка залогиниться*/}
+                    <Button
+                      variant="outline-info"
+                      onClick={() => this.onLoginSuccesses()}
+                    >
                       Save Changes
                     </Button>
                   </Modal.Footer>
                 </Modal>
               </>
               {/*===========================*/}
-              <Modal show={this.state.showRegistration} onHide={() => this.handleCloseRegistration()}>
+              <Modal
+                show={this.state.showRegistration}
+                onHide={() => this.handleCloseRegistration()}
+              >
                 <Modal.Header closeButton>
                   <Modal.Title>Sign up</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  {/*<Form.Label>Name</Form.Label>*/}
-                  {/*<Form.Control type="name" placeholder="Enter name"/>*/}
-                  {/*<Form.Label>Surname</Form.Label>*/}
-                  {/*<Form.Control type="email" placeholder="Enter surname"/>*/}
                   <Form>
                     <Row>
                       <Col>
-
                         <Form.Label>First name</Form.Label>
-                        <Form.Control placeholder="First name"/>
+                        <Form.Control placeholder="First name" />
                       </Col>
                       <Col>
                         <Form.Label>Last name</Form.Label>
-                        <Form.Control placeholder="Last name"/>
+                        <Form.Control placeholder="Last name" />
                       </Col>
                     </Row>
                   </Form>
                   <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email"/>
+                  <Form.Control type="email" placeholder="Enter email" />
                   <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
                   </Form.Text>
                   <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password"/>
+                    <Form.Control type="password" placeholder="Password" />
                   </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button variant="secondary" onClick={() => this.handleCloseRegistration()}>
+                  <Button
+                    variant="secondary"
+                    onClick={() => this.handleCloseRegistration()}
+                  >
                     Close
                   </Button>
-                  <Button variant="outline-info" onClick={() => this.handleCloseRegistration()}>
+                  <Button
+                    variant="outline-info"
+                    onClick={() => this.handleCloseRegistration()}
+                  >
                     Save Changes
                   </Button>
                 </Modal.Footer>
@@ -184,6 +212,6 @@ export default class Header extends React.Component {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    )
+    );
   }
 }
