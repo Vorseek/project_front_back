@@ -13,7 +13,7 @@ export default class Content extends React.Component {
       cardNumber: 3,
     };
     this.cardConstructot = this.cardConstructot.bind(this);
-    this.cardsDeck = this.cardsDeck.bind(this);
+    // this.cardsDeck = this.cardsDeck.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
