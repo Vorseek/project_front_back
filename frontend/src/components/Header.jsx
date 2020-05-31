@@ -1,17 +1,9 @@
 import React from "react";
-import {
-  Navbar,
-  Nav,
-  Container,
-  Form,
-  Button,
-  Modal,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Navbar, Nav, Container, Form, Button } from "react-bootstrap";
+import ModalLogin from "./ModalLogin";
+import ModalRegistration from "./ModalRegistration";
 
 export default function Header(props) {
-  
   const pages = [
     { pageId: 0, name: "Home" },
     { pageId: 1, name: "About us" },
@@ -69,80 +61,19 @@ export default function Header(props) {
                   </Button>
                 </>
               )}
-              <Modal show={props.show} onHide={props.handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Sign in</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" />{" "}
-                  <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                  </Form.Text>
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />{" "}
-                  </Form.Group>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={props.handleClose}>
-                    Close
-                  </Button>
-                  <Button
-                    variant="outline-info"
-                    onClick={props.onLoginSuccesses}
-                  >
-                    Save Changes
-                  </Button>
-                </Modal.Footer>
-              </Modal>
+              {/* ================================= */}
+              {/* Место для вставки модальных окон */}
+              <ModalLogin
+                show={props.show}
+                handleClose={props.handleClose}
+                onLoginSuccesses={props.onLoginSuccesses}
+              />
             </>
             {/*===========================*/}
-            <Modal
-              show={props.showRegistration}
-              onHide={props.handleCloseRegistration}
-            >
-              <Modal.Header closeButton>
-                <Modal.Title>Sign up</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Form>
-                  <Row>
-                    <Col>
-                      <Form.Label>First name</Form.Label>
-                      <Form.Control placeholder="First name" />
-                    </Col>
-                    <Col>
-                      <Form.Label>Last name</Form.Label>
-                      <Form.Control placeholder="Last name" />
-                    </Col>
-                  </Row>
-                </Form>
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </Form.Text>
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
-                  variant="secondary"
-                  onClick={props.handleCloseRegistration}
-                >
-                  Close
-                </Button>
-                <Button
-                  variant="outline-info"
-                  onClick={props.handleCloseRegistration}
-                >
-                  Save Changes
-                </Button>
-              </Modal.Footer>
-            </Modal>
+            <ModalRegistration
+              showRegistration={props.showRegistration}
+              handleCloseRegistration={props.handleCloseRegistration}
+            />
             {/*===========================*/}
           </Form>
         </Navbar.Collapse>

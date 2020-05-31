@@ -34,7 +34,7 @@ export default class Main extends React.Component {
       activePageId: pageId,
     });
   }
-
+  // Компонент отображаюшийся при нажатии на кнопки хедера
   getPageComponent() {
     switch (this.state.activePageId) {
       case 0:
