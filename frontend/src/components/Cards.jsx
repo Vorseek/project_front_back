@@ -8,11 +8,12 @@ export default function Cards(props) {
   return (
     <Card border='dark' style={{width: '18rem'}}>
       <Card.Img variant="top"
-                src={props.characterImage}/>
+                src={props.image}/>
       <Card.Body>
-        <Card.Title>{props.characterName}</Card.Title>
+        <Card.Title>{props.name}</Card.Title>
         <Card.Text>
-          Status: {props.status}
+          Status: {props.status} <br />
+          Species: {props.species}
         </Card.Text>
         <Card.Text>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum sed et 

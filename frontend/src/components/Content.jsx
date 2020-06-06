@@ -71,9 +71,7 @@ export default class Content extends React.Component {
                 return (
                   <Cards
                     key={character.id}
-                    characterImage={character.image}
-                    characterName={character.name}
-                    status={character.status}
+                    {...character}
                   />
                 );
               }
@@ -85,9 +83,7 @@ export default class Content extends React.Component {
                 return (
                   <Cards
                     key={character.id}
-                    characterImage={character.image}
-                    characterName={character.name}
-                    status={character.status}
+                    {...character}
                   />
                 );
               }
