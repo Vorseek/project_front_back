@@ -1,4 +1,4 @@
-import { birthDateToFormatDate, hashPassword } from "./helpers.js";
+import {birthDateToFormatDate, hashPassword} from "./helpers.js";
 import Boom from '@hapi/boom';
 import database from './database/connection.js';
 import uuid from 'uuid';
@@ -8,9 +8,9 @@ import jwt from 'jsonwebtoken';
 export default {
   register: async (request) => {
     try {
-      const { name, surname, email, password, birthDate } = request.payload;
+      const {name, surname, email, password, birthDate} = request.payload;
       const id = uuid.v4();
-      const alreadyRegistered = await database.user.findOne({ email });
+      const alreadyRegistered = await database.user.findOne({email});
 
       if (alreadyRegistered) {
         return Boom.badRequest('Пользователь с таким логином уже зарегестрирован');
@@ -24,7 +24,7 @@ export default {
         password: hashPassword(password),
         birthDate: birthDateToFormatDate(birthDate),
         id,
-        token: jwt.sign({ name, surname, birthDate, id }, process.env.SECRET_OR_PRIVATE_KEY)
+        token: jwt.sign({name, surname, birthDate, id}, process.env.SECRET_OR_PRIVATE_KEY)
       });
 
 
@@ -37,9 +37,9 @@ export default {
 
   login: async (request) => {
     try {
-      const { email, password } = request.payload;
+      const {email, password} = request.payload;
 
-      const foundUser = await database.user.findOne({ email, password: hashPassword(password) });
+      const foundUser = await database.user.findOne({email, password: hashPassword(password)});
 
       if (foundUser) {
         return foundUser.token;
@@ -54,7 +54,7 @@ export default {
 
   info: async (request) => {
     try {
-      const searchUserId = await database.user.findOne({ id: request.query.id });
+      const searchUserId = await database.user.findOne({id: request.query.id});
       if (searchUserId) {
         return searchUserId;
       } else if (!searchUserId) {
@@ -71,9 +71,9 @@ export default {
 
   editInfo: async (request) => {
     try {
-      const { id, name, surname, email, password, birthDate } = request.query;
+      const {id, name, surname, email, password, birthDate} = request.query;
 
-      const searchUserId = await database.user.findOne({ id });
+      const searchUserId = await database.user.findOne({id});
       if (searchUserId) {
         await searchUserId.updateOne({
           name: name || searchUserId.name,
@@ -95,7 +95,7 @@ export default {
     try {
       const id = request.query.id;
       if (id) {
-        await database.user.deleteOne({ id });
+        await database.user.deleteOne({id});
         return 'ok';
       }
       return Boom.badRequest('Пользователь не найден.');
@@ -106,8 +106,8 @@ export default {
   },
   postCreate: async (request) => {
     try {
-      const { postText, userId } = request.payload;
-      const searchUserId = await database.user.findOne({ id: userId });
+      const {postText, userId} = request.payload;
+      const searchUserId = await database.user.findOne({id: userId});
 
       if (searchUserId) {
         await database.post.create({
@@ -123,5 +123,11 @@ export default {
       console.log(e);
       return Boom.badImplementation('Упс. При создании поста произошла ошибка. Попробуйте позднее.');
     }
+  },
+  post: async () => {
+    return database.post.find();
+  },
+  user: async () => {
+    return database.user.find();
   }
 };

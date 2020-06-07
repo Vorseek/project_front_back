@@ -66,6 +66,17 @@ export default [
         payload: validateJoi.postCreate,
       }
     }
+  },
+  {
+    method: "GET",
+    path: "/post",
+    handler: controllers.post,
+  },
+  {
+    method: "GET",
+    path: "/user",
+    handler: controllers.post,
   }
+
 ]
 
