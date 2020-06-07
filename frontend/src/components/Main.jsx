@@ -5,7 +5,8 @@ import Content from "./Content";
 import UsersList from "./UsersList";
 import About from "./About";
 import Blog from './Blog'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import "./style.css";
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -17,10 +18,10 @@ export default class Main extends React.Component {
       showRegistration: false,
       isLoggedIn: false,
       pages: [
-        { pageId: 0, name: "Home", path: "/" },
-        { pageId: 1, name: "About", path: "/about" },
-        { pageId: 2, name: "Users", path: "/users" },
-        { pageId: 3, name: "Blog", path: "/blog" },
+        {pageId: 0, name: "Home", path: "/"},
+        {pageId: 1, name: "About", path: "/about"},
+        {pageId: 2, name: "Users", path: "/users"},
+        {pageId: 3, name: "Blog", path: "/blog"},
       ],
     };
 
@@ -47,6 +48,7 @@ export default class Main extends React.Component {
       show: true,
     });
   }
+
   handleClose() {
     this.setState({
       show: false,
@@ -58,11 +60,13 @@ export default class Main extends React.Component {
       showRegistration: true,
     });
   }
+
   handleCloseRegistration() {
     this.setState({
       showRegistration: false,
     });
   }
+
   onLoginSuccesses() {
     this.setState({
       isLoggedIn: true,
@@ -79,35 +83,37 @@ export default class Main extends React.Component {
   render() {
     return (
       <>
-        <Router>
-          <Header
-            {...this.state}
-            setPage={this.setPage}
-            handleShowLogin={this.handleShowLogin}
-            handleClose={this.handleClose}
-            handleShowRegistration={this.handleShowRegistration}
-            handleCloseRegistration={this.handleCloseRegistration}
-            onLoginSuccesses={this.onLoginSuccesses}
-            onLogout={this.onLogout}
-          />
+        <div className="for_footer">
+          <Router>
+            <Header
+              {...this.state}
+              setPage={this.setPage}
+              handleShowLogin={this.handleShowLogin}
+              handleClose={this.handleClose}
+              handleShowRegistration={this.handleShowRegistration}
+              handleCloseRegistration={this.handleCloseRegistration}
+              onLoginSuccesses={this.onLoginSuccesses}
+              onLogout={this.onLogout}
+            />
 
-          <Switch>
-            <Route path="/blog">
-              <Blog />
-            </Route>
-            <Route path="/users">
-              <UsersList />
-            </Route>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/" exact>
-              <Content />
-            </Route>
-          </Switch>
+            <Switch>
+              <Route path="/blog">
+                <Blog/>
+              </Route>
+              <Route path="/users">
+                <UsersList/>
+              </Route>
+              <Route path="/about">
+                <About/>
+              </Route>
+              <Route path="/" exact>
+                <Content/>
+              </Route>
+            </Switch>
+          </Router>
+        </div>
+        <Footer/>
 
-          <Footer />
-        </Router>
       </>
     );
   }
