@@ -1,3 +1,6 @@
 body {
-    padding: 10px
+    padding: 0px;
+}
+.for_footer {
+    min-height: calc(100vh - 56px);
 }
