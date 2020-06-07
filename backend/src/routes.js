@@ -26,7 +26,7 @@ export default [
     method: "GET",
     path: '/user/info',
     handler: controllers.info,
-    options: { auth: 'admin' }
+    // options: { auth: 'admin' }
   },
   {
     method: "PUT",
