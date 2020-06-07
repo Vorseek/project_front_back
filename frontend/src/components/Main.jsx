@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Content from "./Content";
 import UsersList from "./UsersList";
 import About from "./About";
+import Blog from './Blog'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export default class Main extends React.Component {
@@ -92,7 +93,7 @@ export default class Main extends React.Component {
 
           <Switch>
             <Route path="/blog">
-              <div>hello, world it's blog</div>
+              <Blog />
             </Route>
             <Route path="/users">
               <UsersList />

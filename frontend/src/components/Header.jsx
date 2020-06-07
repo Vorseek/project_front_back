@@ -15,9 +15,9 @@ export default function Header(props) {
   const renderMenu = () => {
     return props.pages.map((page, i) => {
       return (
-        <Nav key={i}>
+        <Button variant="outline-dark" key={i}>
           <Link to={page.path}>{page.name}</Link>
-        </Nav>
+        </Button>
       );
     });
   };
