@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Content from "./Content";
 import UsersList from "./UsersList";
 import About from "./About";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -14,10 +15,16 @@ export default class Main extends React.Component {
       show: false,
       showRegistration: false,
       isLoggedIn: false,
+      pages: [
+        { pageId: 0, name: "Home", path: "/" },
+        { pageId: 1, name: "About", path: "/about" },
+        { pageId: 2, name: "Users", path: "/users" },
+        { pageId: 3, name: "Blog", path: "/blog" },
+      ],
     };
 
     this.setPage = this.setPage.bind(this);
-    this.getPageComponent = this.getPageComponent.bind(this);
+    // this.getPageComponent = this.getPageComponent.bind(this);
     this.handleShowLogin = this.handleShowLogin.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleShowRegistration = this.handleShowRegistration.bind(this);
@@ -31,17 +38,7 @@ export default class Main extends React.Component {
       activePageId: pageId,
     });
   }
-  // Компонент отображаюшийся при нажатии на кнопки хедера
-  getPageComponent() {
-    switch (this.state.activePageId) {
-      case 0:
-        return <Content />;
-      case 1:
-        return <About />;
-      case 2:
-        return <UsersList />;
-    }
-  }
+
   // ==================================
 
   handleShowLogin() {
@@ -80,24 +77,37 @@ export default class Main extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Header
-          show={this.state.show}
-          showRegistration={this.state.showRegistration}
-          isLoggedIn={this.state.isLoggedIn}
-          setPage={this.setPage}
-          handleShowLogin={this.handleShowLogin}
-          handleClose={this.handleClose}
-          handleShowRegistration={this.handleShowRegistration}
-          handleCloseRegistration={this.handleCloseRegistration}
-          onLoginSuccesses={this.onLoginSuccesses}
-          onLogout={this.onLogout}
-        />
+      <>
+        <Router>
+          <Header
+            {...this.state}
+            setPage={this.setPage}
+            handleShowLogin={this.handleShowLogin}
+            handleClose={this.handleClose}
+            handleShowRegistration={this.handleShowRegistration}
+            handleCloseRegistration={this.handleCloseRegistration}
+            onLoginSuccesses={this.onLoginSuccesses}
+            onLogout={this.onLogout}
+          />
 
-        {this.getPageComponent()}
+          <Switch>
+            <Route path="/blog">
+              <div>hello, world it's blog</div>
+            </Route>
+            <Route path="/users">
+              <UsersList />
+            </Route>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/" exact>
+              <Content />
+            </Route>
+          </Switch>
 
-        <Footer />
-      </React.Fragment>
+          <Footer />
+        </Router>
+      </>
     );
   }
 }

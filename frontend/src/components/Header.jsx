@@ -2,21 +2,22 @@ import React from "react";
 import { Navbar, Nav, Container, Form, Button } from "react-bootstrap";
 import ModalLogin from "./ModalLogin";
 import ModalRegistration from "./ModalRegistration";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 export default function Header(props) {
-  const pages = [
-    { pageId: 0, name: "Home" },
-    { pageId: 1, name: "The Rick and Morty" },
-    { pageId: 2, name: "Users" },
-    { pageId: 3, name: "Blog" },
-  ];
+
 
   const renderMenu = () => {
-    return pages.map((page, i) => {
+    return props.pages.map((page, i) => {
       return (
-        <Nav.Link key={i} onClick={() => props.setPage(page.pageId)}>
-          {page.name}
-        </Nav.Link>
+        <Nav key={i}>
+          <Link to={page.path}>{page.name}</Link>
+        </Nav>
       );
     });
   };
