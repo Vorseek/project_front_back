@@ -6,7 +6,7 @@ import ModalRegistration from "./ModalRegistration";
 export default function Header(props) {
   const pages = [
     { pageId: 0, name: "Home" },
-    { pageId: 1, name: "About us" },
+    { pageId: 1, name: "The Rick and Morty" },
     { pageId: 2, name: "Users" },
     { pageId: 3, name: "Blog" },
   ];

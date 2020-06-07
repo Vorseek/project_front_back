@@ -1,8 +1,5 @@
 import React from "react";
 import Header from "./Header";
-import CarouselBox from "./CarouselBox";
-import Cards from "./Cards";
-import { CardDeck } from "react-bootstrap";
 import Footer from "./Footer";
 import Content from "./Content";
 import UsersList from "./UsersList";
