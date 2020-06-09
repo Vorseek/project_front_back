@@ -11,10 +11,12 @@ export default class Content extends React.Component {
     this.state = {
       characterOneThree: [],
       characterFourSix: [],
+      posts: [],
     };
     this.cardConstructot = this.cardConstructot.bind(this);
     this.cardsDeck = this.cardsDeck.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.postConstructor = this.postConstructor.bind(this);
   }
 
   // запрос инфы
@@ -35,7 +37,23 @@ export default class Content extends React.Component {
 
   async componentDidMount() {
     this.cardConstructot();
+    this.postConstructor()
   }
+
+  async postConstructor() {
+    try {
+      const response = await axios(
+        `http://localhost:3010/post`
+      );
+      // const { name, image } = response.data;
+      this.setState({
+        posts: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
 
   // создаем карточки 
   cardsDeck(character) {

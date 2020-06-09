@@ -66,15 +66,13 @@ export default function Header(props) {
             {/* ================================= */}
             {/* Место для вставки модальных окон */}
             <ModalLogin
-              show={props.show}
-              handleClose={props.handleClose}
               onLoginSuccesses={props.onLoginSuccesses}
+              {...props}
             />
 
             {/*===========================*/}
             <ModalRegistration
-              showRegistration={props.showRegistration}
-              handleCloseRegistration={props.handleCloseRegistration}
+              {...props}
             />
             {/*===========================*/}
           </Form>

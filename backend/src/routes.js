@@ -9,6 +9,10 @@ export default [
     options: {
       validate: {
         payload: validateJoi.register,
+      },
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
       }
     }
   },
@@ -19,10 +23,15 @@ export default [
     options: {
       validate: {
         payload: validateJoi.login,
+      },
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
       }
     }
   },
   {
+
     method: "GET",
     path: '/user/info',
     handler: controllers.info,
@@ -36,16 +45,28 @@ export default [
       auth: 'user',
       validate: {
         query: validateJoi.info,
+      },
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
       }
     }
   },
   {
+
     method: "GET",
     path: "/user/delete",
     handler: controllers.userDeleted,
-    options: { auth: 'user' },
+    options: {
+      auth: 'user',
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
   },
   {
+
     method: "GET",
     path: "/{file*}",
     handler: {
@@ -57,6 +78,7 @@ export default [
     },
   },
   {
+
     method: "POST",
     path: "/post/create",
     handler: controllers.postCreate,
@@ -64,15 +86,31 @@ export default [
       auth: 'user',
       validate: {
         payload: validateJoi.postCreate,
+      },
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
       }
     }
   },
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: "GET",
     path: "/post",
     handler: controllers.post,
   },
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: "GET",
     path: "/user",
     handler: controllers.post,

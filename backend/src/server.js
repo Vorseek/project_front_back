@@ -16,7 +16,7 @@ import makeUserAuth from './auth/userAuth.js';
 const init = async () => {
 
   const server = Hapi.server({
-    port: parseInt(process.env.PORT || '3010', 10),
+    port: parseInt(process.env.PORT || '3000', 10),
     host: 'localhost',
     routes: {
       validate: {
