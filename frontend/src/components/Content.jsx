@@ -73,7 +73,6 @@ export default class Content extends React.Component {
           <CarouselBox />
           {this.cardsDeck(this.state.characterOneThree)}
           {this.cardsDeck(this.state.characterFourSix)}
-          {console.log(this.state.posts)}
         </div>
       </>
     );

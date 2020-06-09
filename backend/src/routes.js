@@ -3,56 +3,41 @@ import validateJoi from "./validateJoi.js";
 
 export default [
   {
-    config: {
-      cors: {
-        origin: ['*'],
-        additionalHeaders: ['cache-control', 'x-requested-with']
-      }
-    },
     method: 'POST',
     path: '/user/register',
     handler: controllers.register,
     options: {
       validate: {
         payload: validateJoi.register,
-      }
-    }
-  },
-  {
-    config: {
+      },
       cors: {
         origin: ['*'],
         additionalHeaders: ['cache-control', 'x-requested-with']
       }
-    },
+    }
+  },
+  {
     method: "POST",
     path: '/user/login',
     handler: controllers.login,
     options: {
       validate: {
         payload: validateJoi.login,
-      }
-    }
-  },
-  {
-    config: {
+      },
       cors: {
         origin: ['*'],
         additionalHeaders: ['cache-control', 'x-requested-with']
       }
-    },
+    }
+  },
+  {
+
     method: "GET",
     path: '/user/info',
     handler: controllers.info,
     // options: { auth: 'admin' }
   },
   {
-    config: {
-      cors: {
-        origin: ['*'],
-        additionalHeaders: ['cache-control', 'x-requested-with']
-      }
-    },
     method: "PUT",
     path: "/user/info",
     handler: controllers.editInfo,
@@ -60,28 +45,28 @@ export default [
       auth: 'user',
       validate: {
         query: validateJoi.info,
+      },
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
       }
     }
   },
   {
-    config: {
-      cors: {
-        origin: ['*'],
-        additionalHeaders: ['cache-control', 'x-requested-with']
-      }
-    },
+
     method: "GET",
     path: "/user/delete",
     handler: controllers.userDeleted,
-    options: { auth: 'user' },
-  },
-  {
-    config: {
+    options: {
+      auth: 'user',
       cors: {
         origin: ['*'],
         additionalHeaders: ['cache-control', 'x-requested-with']
       }
     },
+  },
+  {
+
     method: "GET",
     path: "/{file*}",
     handler: {
@@ -93,12 +78,7 @@ export default [
     },
   },
   {
-    config: {
-      cors: {
-        origin: ['*'],
-        additionalHeaders: ['cache-control', 'x-requested-with']
-      }
-    },
+
     method: "POST",
     path: "/post/create",
     handler: controllers.postCreate,
@@ -106,6 +86,10 @@ export default [
       auth: 'user',
       validate: {
         payload: validateJoi.postCreate,
+      },
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
       }
     }
   },
