@@ -3,6 +3,12 @@ import validateJoi from "./validateJoi.js";
 
 export default [
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: 'POST',
     path: '/user/register',
     handler: controllers.register,
@@ -13,6 +19,12 @@ export default [
     }
   },
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: "POST",
     path: '/user/login',
     handler: controllers.login,
@@ -23,12 +35,24 @@ export default [
     }
   },
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: "GET",
     path: '/user/info',
     handler: controllers.info,
     // options: { auth: 'admin' }
   },
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: "PUT",
     path: "/user/info",
     handler: controllers.editInfo,
@@ -40,12 +64,24 @@ export default [
     }
   },
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: "GET",
     path: "/user/delete",
     handler: controllers.userDeleted,
     options: { auth: 'user' },
   },
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: "GET",
     path: "/{file*}",
     handler: {
@@ -57,6 +93,12 @@ export default [
     },
   },
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: "POST",
     path: "/post/create",
     handler: controllers.postCreate,
@@ -68,11 +110,23 @@ export default [
     }
   },
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: "GET",
     path: "/post",
     handler: controllers.post,
   },
   {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
     method: "GET",
     path: "/user",
     handler: controllers.post,
