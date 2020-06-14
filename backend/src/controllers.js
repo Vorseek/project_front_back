@@ -106,11 +106,12 @@ export default {
   },
   postCreate: async (request) => {
     try {
-      const {postText, userId} = request.payload;
+      const {postText, userId, postTitle} = request.payload;
       const searchUserId = await database.user.findOne({id: userId});
 
       if (searchUserId) {
         await database.post.create({
+          postTitle,
           postText,
           postId: uuid.v4(),
           userId,
@@ -126,6 +127,19 @@ export default {
   },
   post: async () => {
     return database.post.find();
+  },
+  postDel: async (request) => {
+    try {
+      const _id = request.query.id;
+      if (_id) {
+        await database.post.deleteOne({_id});
+        return 'ok';
+      }
+      return Boom.badRequest('Пользователь не найден.');
+    } catch (e) {
+      console.log(e);
+      return Boom.badImplementation('Упс. При удалении пользователя произошла ошибка. Попробуйте позднее.');
+    }
   },
   user: async () => {
     return database.user.find();

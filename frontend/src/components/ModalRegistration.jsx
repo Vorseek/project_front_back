@@ -48,6 +48,7 @@ export default class ModalLogin extends React.Component {
     }
   }
 
+
   render() {
     return (
       <Modal show={this.props.showRegistration} onHide={this.props.handleCloseRegistration}>

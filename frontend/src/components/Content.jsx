@@ -13,17 +13,25 @@ export default class Content extends React.Component {
       characterFourSix: [],
       posts: [],
     };
-    this.cardConstructot = this.cardConstructot.bind(this);
+    this.cardConstructor = this.cardConstructor.bind(this);
     this.cardsDeck = this.cardsDeck.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.postConstructor = this.postConstructor.bind(this);
   }
+  // Рандомный массив для запроса персонажей
+  randomCharter() {
+    const arrCharter = [];
+    for (let i = 6; arrCharter.length < i;) {
+      arrCharter.push(Math.floor(Math.random() * Math.floor(300)));
+    }
+    return arrCharter
+  }
 
-  // запрос инфы
-  async cardConstructot() {
+  // запрос персонажей
+  async cardConstructor() {
     try {
       const response = await axios(
-        `https://rickandmortyapi.com/api/character/1,2,3,4,5,6`
+        `https://rickandmortyapi.com/api/character/${this.randomCharter()}`
       );
       // const { name, image } = response.data;
       this.setState({
@@ -36,7 +44,7 @@ export default class Content extends React.Component {
   }
 
   async componentDidMount() {
-    this.cardConstructot();
+    this.cardConstructor();
     this.postConstructor()
   }
 

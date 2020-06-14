@@ -83,7 +83,7 @@ export default [
     path: "/post/create",
     handler: controllers.postCreate,
     options: {
-      auth: 'user',
+      // auth: 'user',
       validate: {
         payload: validateJoi.postCreate,
       },
@@ -103,6 +103,17 @@ export default [
     method: "GET",
     path: "/post",
     handler: controllers.post,
+  },
+  {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
+    method: "GET",
+    path: "/post/del",
+    handler: controllers.postDel,
   },
   {
     config: {

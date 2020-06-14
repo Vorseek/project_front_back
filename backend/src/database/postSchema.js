@@ -13,6 +13,10 @@ const schema = new mongoose.Schema(
     postId: {
       type: mongoose.Schema.Types.String,
       required: true,
+    } ,
+    postTitle: {
+      type: mongoose.Schema.Types.String,
+      required: true,
     }
   }
 )
