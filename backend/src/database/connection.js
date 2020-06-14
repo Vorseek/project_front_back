@@ -1,5 +1,6 @@
 import userSchema from './userSchema.js';
 import postSchema from './postSchema.js';
+import commentSchema from './commentSchema.js';
 import mongoose from 'mongoose';
 
 const host = process.env.MONGO_HOST || 'localhost';
@@ -8,7 +9,7 @@ const dbName = 'dbSite';
 
 const uri = `mongodb://${host}:${port}/${dbName}`;
 
-mongoose.connect(uri, { useNewUrlParser: true });
+mongoose.connect(uri, {useNewUrlParser: true});
 
 const db = mongoose.connection;
 db.on('error', (err) => {
@@ -21,9 +22,11 @@ db.once('open', () => {
 
 const user = mongoose.model('user', userSchema);
 const post = mongoose.model('post', postSchema);
+const comment = mongoose.model('comment', commentSchema);
 
 export default {
   // post, admin, comment
   user,
   post,
+  comment,
 }

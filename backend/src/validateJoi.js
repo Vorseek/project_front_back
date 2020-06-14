@@ -23,7 +23,12 @@ const schema = {
     postTitle: Joi.string().required(),
     postText: Joi.string().required(),
     userId: Joi.string().required(),
-  })
+  }),
+  commentAdd: Joi.object({
+    commentText: Joi.string().required(),
+    userId: Joi.string().required(),
+    postId: Joi.string().required(),
+  }),
 }
 
 export default schema

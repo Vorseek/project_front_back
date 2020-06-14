@@ -27,6 +27,7 @@ export default class Blog extends React.Component {
 
   }
 
+
   async cardConstructot() {
     try {
       const response = await axios(
@@ -39,6 +40,7 @@ export default class Blog extends React.Component {
       console.log(e);
     }
   }
+
 
   async addPost() {
     const response = await axios.post('http://localhost:3010/post/create', {

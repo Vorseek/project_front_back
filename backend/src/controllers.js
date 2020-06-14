@@ -143,5 +143,28 @@ export default {
   },
   user: async () => {
     return database.user.find();
-  }
+  },
+  commentAdd: async (request) => {
+    try {
+      const {commentText, userId, postId} = request.payload;
+      const searchUserId = await database.user.findOne({id: userId});
+
+      if (searchUserId) {
+        await database.comment.create({
+          commentText,
+          postId,
+          userId,
+        })
+        return 'ok';
+      }
+
+      return Boom.badRequest('Произошла ошибка, попробуйте позднее.');
+    } catch (e) {
+      console.log(e);
+      return Boom.badImplementation('Упс. При создании поста произошла ошибка. Попробуйте позднее.');
+    }
+  },
+  comment: async () => {
+    return database.comment.find();
+  },
 };

@@ -125,7 +125,32 @@ export default [
     method: "GET",
     path: "/user",
     handler: controllers.post,
-  }
+  },
+  {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      },
+      validate: {
+        payload: validateJoi.commentAdd,
+      },
+    },
+    method: "POST",
+    path: "/comment/add",
+    handler: controllers.commentAdd,
+  },
+  {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
+    method: "GET",
+    path: "/comment",
+    handler: controllers.comment,
+  },
 
 ]
 
