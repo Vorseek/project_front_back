@@ -22,15 +22,21 @@ export default class Post extends React.Component {
 
 
   async componentDidMount() {
-    this.downloadComments();
+    await this.downloadComments();
+    this.sort()
   }
 
+  sort() {
+    const arr = this.state.comments.filter(e => e.postId === this.props._id)
+    this.setState({
+      comments: arr
+    })
+  }
 
   render() {
     return (
       <>
         <Card>
-
           <Card.Body>
             <Link to={`/blog/post/${this.props._id}`}>
               <Card.Title>{this.props.postTitle}</Card.Title>
@@ -47,27 +53,20 @@ export default class Post extends React.Component {
             <Link to={`/blog/post/${this.props._id}/edit`}><Button variant="primary">Edit</Button></Link>
           </div>
         </Card>
-        {
-          console.log(this.state.comments)
-          // comments.map(e => (
-          //   <Card>
-          //     <h3>Comments</h3>
-          //     <Card.Body>
-          //       <Card.Title>{e.commentText}</Card.Title>
-          //       <Card.Text>
-          //         Post on: {postText}
-          //       </Card.Text>
-          //     </Card.Body>
-          //     <Card.Body>
-          //       <Card.Title>{postTitle}</Card.Title>
-          //       <Card.Text>
-          //         Post on: {postText}
-          //       </Card.Text>
-          //     </Card.Body>
-          //   </Card>
-          // ))
-        }
-
+        <Card>
+          <h3>Comments</h3>
+          {
+            this.state.comments.map(e => (
+              <Card.Body key={e._id}>
+                <Card.Text>
+                  {e.commentText}
+                </Card.Text>
+                <Button variant="primary" className="mr-2">Remove</Button>
+                <Button variant="primary" className="mr-2">Edit</Button>
+              </Card.Body>
+            ))
+          }
+        </Card>
       </>
     )
   }

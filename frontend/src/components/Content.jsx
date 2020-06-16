@@ -1,28 +1,32 @@
 import React from "react";
 import CarouselBox from "./CarouselBox";
 import Cards from "./Cards";
-import { CardDeck } from "react-bootstrap";
+import {CardDeck} from "react-bootstrap";
 import axios from "axios";
+import dataReducer from '../actions/data';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-export default class Content extends React.Component {
+class Content extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      characterOneThree: [],
-      characterFourSix: [],
-      posts: [],
-    };
-    this.cardConstructor = this.cardConstructor.bind(this);
-    this.cardsDeck = this.cardsDeck.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.postConstructor = this.postConstructor.bind(this);
+    // this.state = {
+    //   characterOneThree: [],
+    //   characterFourSix: [],
+    //   posts: [],
+    // };
+    // this.cardConstructor = this.cardConstructor.bind(this);
+    // this.cardsDeck = this.cardsDeck.bind(this);
+    // this.componentDidMount = this.componentDidMount.bind(this);
+    // this.postConstructor = this.postConstructor.bind(this);
   }
+
   // Рандомный массив для запроса персонажей
   randomCharter() {
     const arrCharter = [];
     for (let i = 6; arrCharter.length < i;) {
-      arrCharter.push(Math.floor(Math.random() * Math.floor(300)));
+      arrCharter.push(Math.floor(Math.random() * Math.floor(350)));
     }
     return arrCharter
   }
@@ -34,10 +38,9 @@ export default class Content extends React.Component {
         `https://rickandmortyapi.com/api/character/${this.randomCharter()}`
       );
       // const { name, image } = response.data;
-      this.setState({
-        characterOneThree: response.data.slice(0, 3),
-        characterFourSix: response.data.slice(3),
-      });
+
+      this.props.actions.characterOneThree(response.data.slice(0, 3), response.data.slice(3))
+
     } catch (e) {
       console.log(e);
     }
@@ -75,14 +78,30 @@ export default class Content extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <>
         <div className={"container"}>
-          <CarouselBox />
-          {this.cardsDeck(this.state.characterOneThree)}
-          {this.cardsDeck(this.state.characterFourSix)}
+          <CarouselBox/>
+          {this.cardsDeck(this.props.data.characterOneThree)}
+          {this.cardsDeck(this.props.data.characterFourSix)}
         </div>
       </>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  ...state,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    dataReducer,
+    dispatch
+  ),
+});
+
+const Wrapped = connect(mapStateToProps, mapDispatchToProps)(Content);
+
+export default Wrapped
