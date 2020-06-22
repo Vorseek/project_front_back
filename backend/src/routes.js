@@ -151,6 +151,28 @@ export default [
     path: "/comment",
     handler: controllers.comment,
   },
+  {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
+    method: "GET",
+    path: "/comment/del",
+    handler: controllers.commentDel,
+  },
+  {
+    config: {
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+    },
+    method: "POST",
+    path: "/comment/edit",
+    handler: controllers.commentEdit,
+  },
 
 ]
 

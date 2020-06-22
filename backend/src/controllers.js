@@ -167,4 +167,35 @@ export default {
   comment: async () => {
     return database.comment.find();
   },
+  commentDel: async (request) => {
+    try {
+      const _id = request.query.id;
+      if (_id) {
+        await database.comment.deleteOne({_id});
+        return 'ok';
+      }
+      return Boom.badRequest('Комментарий не найден.');
+    } catch (e) {
+      console.log(e);
+      return Boom.badImplementation('Упс. При удалении комментария произошла ошибка. Попробуйте позднее.');
+    }
+  },
+  commentEdit: async (request) => {
+    try {
+      const {_id, commentText} = request.payload;
+
+      const searchUserId = await database.comment.findOne({_id});
+      if (searchUserId) {
+        await searchUserId.updateOne({
+          commentText: commentText || searchUserId.commentText,
+        });
+        return 'ok';
+      }
+
+      return Boom.badRequest('Комментарий не найден');
+    } catch (e) {
+      console.log(e);
+      return Boom.badImplementation('Упс. При изменении информации о пользователе произошла ошибка. Попробуйте позднее.');
+    }
+  },
 };

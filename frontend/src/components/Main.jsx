@@ -24,9 +24,8 @@ export default class Main extends React.Component {
         {pageId: 3, name: "Blog", path: "/blog"},
       ],
     };
-
-    this.setPage = this.setPage.bind(this);
     // this.getPageComponent = this.getPageComponent.bind(this);
+    this.setPage = this.setPage.bind(this);
     this.handleShowLogin = this.handleShowLogin.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleShowRegistration = this.handleShowRegistration.bind(this);
@@ -106,7 +105,7 @@ export default class Main extends React.Component {
               <Route path="/about">
                 <About/>
               </Route>
-              <Route path="/" exact>
+              <Route path="/">
                 <Content/>
               </Route>
             </Switch>
