@@ -10,11 +10,14 @@ export default class Post extends React.Component {
       comments: [],
       comment: '',
       commentEdit: '',
+      edit: false,
+      commentIdForEdit: '',
     }
     this.downloadComments = this.downloadComments.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.commentAdd = this.commentAdd.bind(this);
     this.handleChangeText = this.handleChangeText.bind(this);
+    this.commentEdit = this.commentEdit.bind(this);
 
   }
 
@@ -40,7 +43,7 @@ export default class Post extends React.Component {
 
   async commentDel(_id) {
     try {
-      const response = await axios.get(`http://localhost:3010/comment/del?id=${_id}`)
+      const response = await axios.get(`http://localhost:3010/comment/del?id=${_id}`, { headers: { Authorization: localStorage.user }})
     } catch (e) {
       console.log(e);
     }
@@ -52,7 +55,17 @@ export default class Post extends React.Component {
         commentText: this.state.comment,
         postId: this.props._id,
         userId: '3e4a6376-80cd-4c72-b26f-ecf1340811aa',
-      })
+      }, { headers: { Authorization: localStorage.user }})
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  async commentEdit() {
+    try {
+      const response = await axios.post(`http://localhost:3010/comment/edit`, {
+        commentText: this.state.comment,
+        _id: this.state.commentIdForEdit,
+      }, { headers: { Authorization: localStorage.user }})
     } catch (e) {
       console.log(e);
     }
@@ -94,20 +107,33 @@ export default class Post extends React.Component {
                   await this.commentDel(e._id);
                   await this.componentDidMount();
                 }}>Remove</Button>
-                <Button variant="primary" className="mr-2">Edit</Button>
+                <Button variant="primary" className="mr-2" onClick={() => {
+                  this.setState({
+                    edit: !this.state.edit,
+                    comment: !this.state.edit ? e.commentText : '',
+                    commentIdForEdit: !this.state.edit ? e._id : '',
+                  })
+                }}>Edit</Button>
               </Card.Body>
             ))
           }
         </Card>
         <Form.Group controlId="formBasicComment">
-          <Form.Label>Comment</Form.Label>
+          <Form.Label>{this.state.edit ? 'Edit comment' : 'Comment'}</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Comment"
+            placeholder={this.state.edit ? 'Edit comment' : 'Comment'}
             onChange={this.handleChangeText}
             value={this.state.comment}/>
           <Button variant="primary" className="mr-2" onClick={async () => {
-            await this.commentAdd();
+            if (this.state.edit) {
+              await this.commentEdit()
+              this.setState({
+                edit: !this.state.edit
+              })
+            } else {
+              await this.commentAdd();
+            }
             await this.componentDidMount();
             this.setState({
               comment: ''

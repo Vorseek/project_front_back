@@ -78,12 +78,11 @@ export default [
     },
   },
   {
-
     method: "POST",
     path: "/post/create",
     handler: controllers.postCreate,
     options: {
-      // auth: 'user',
+      auth: 'user',
       validate: {
         payload: validateJoi.postCreate,
       },
@@ -128,6 +127,7 @@ export default [
   },
   {
     config: {
+      auth: 'user',
       cors: {
         origin: ['*'],
         additionalHeaders: ['cache-control', 'x-requested-with']
@@ -153,6 +153,7 @@ export default [
   },
   {
     config: {
+      auth: 'user',
       cors: {
         origin: ['*'],
         additionalHeaders: ['cache-control', 'x-requested-with']
@@ -164,6 +165,7 @@ export default [
   },
   {
     config: {
+      auth: 'user',
       cors: {
         origin: ['*'],
         additionalHeaders: ['cache-control', 'x-requested-with']

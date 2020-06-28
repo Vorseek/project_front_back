@@ -16,7 +16,7 @@ export default class Main extends React.Component {
       activePageId: 0,
       show: false,
       showRegistration: false,
-      isLoggedIn: false,
+      isLoggedIn: !!localStorage.user,
       pages: [
         {pageId: 0, name: "Home", path: "/"},
         {pageId: 1, name: "About", path: "/about"},
@@ -77,6 +77,7 @@ export default class Main extends React.Component {
     this.setState({
       isLoggedIn: false,
     });
+    localStorage.removeItem('user')
   }
 
   render() {

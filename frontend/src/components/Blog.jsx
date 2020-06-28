@@ -18,7 +18,7 @@ export default class Blog extends React.Component {
       postTitle: '',
       postText: '',
     };
-    this.cardConstructot = this.cardConstructot.bind(this);
+    this.cardConstructor = this.cardConstructor.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.hideCreatePosts = this.hideCreatePosts.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
@@ -28,7 +28,7 @@ export default class Blog extends React.Component {
   }
 
 
-  async cardConstructot() {
+  async cardConstructor() {
     try {
       const response = await axios(
         `http://localhost:3010/post`
@@ -47,7 +47,7 @@ export default class Blog extends React.Component {
       postTitle: this.state.postTitle,
       postText: this.state.postText,
       userId: "3e4a6376-80cd-4c72-b26f-ecf1340811aa",
-    })
+    }, {headers: {Authorization: localStorage.user}})
     if (response) {
       this.setState({
         hideCreatePost: false,
@@ -65,7 +65,7 @@ export default class Blog extends React.Component {
   }
 
   async componentDidMount() {
-    this.cardConstructot();
+    await this.cardConstructor();
   }
 
   cardsDeck(character) {
@@ -121,7 +121,9 @@ export default class Blog extends React.Component {
                             onChange={this.handleChangeText}
                             value={this.state.postText}/>
             </Form.Group>
-            <Button variant="outline-secondary" onClick={() => {this.addPost()}}>Add post</Button>
+            <Button variant="outline-secondary" onClick={() => {
+              this.addPost()
+            }}>Add post</Button>
           </Card>
           }
 
@@ -134,7 +136,8 @@ export default class Blog extends React.Component {
             <div>
               <Switch>
                 <Route exact path="/blog" component={() => (
-                  <PostsList key={this.state.posts._id} posts={this.state.posts} cardConstructot={this.cardConstructot}/>
+                  <PostsList key={this.state.posts._id} posts={this.state.posts}
+                             cardConstructot={this.cardConstructot}/>
                 )}/>
                 <Route exact path="/blog/post/:_id" render={(props) => {
                   const id = props.match.params._id

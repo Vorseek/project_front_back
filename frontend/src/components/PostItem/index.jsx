@@ -3,10 +3,10 @@ import {Button, Card, Form} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import axios from "axios";
 
-const PostItem = ({postTitle, postText, _id, onRemove, cardConstructot}) => {
+const PostItem = ({postTitle, postText, _id, onRemove, cardConstructor}) => {
   const postDel = async (_id) => {
     try {
-      const response = await axios.get(`http://localhost:3010/post/del?id=${_id}`)
+      const response = await axios.get(`http://localhost:3010/post/del?id=${_id}`, { headers: { Authorization: localStorage.user }})
     } catch (e) {
       console.log(e);
     }
@@ -27,9 +27,9 @@ const PostItem = ({postTitle, postText, _id, onRemove, cardConstructot}) => {
           <Link to={`/blog/post/${_id}`}>
             <Button variant="primary" className="mr-2">More</Button>
           </Link>
-          <Link to={`/blog`} onClick={() => {
-            postDel(_id);
-            cardConstructot();
+          <Link to={`/blog`} onClick={async () => {
+            await postDel(_id);
+            cardConstructor();
           }}><Button variant="primary" className="mr-2">Remove</Button>
           </Link>
           <Link to={`/blog/post/${_id}/edit`}><Button variant="primary">Edit</Button></Link>

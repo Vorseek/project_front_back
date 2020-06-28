@@ -19,6 +19,7 @@ const init = async () => {
     port: parseInt(process.env.PORT || '3000', 10),
     host: 'localhost',
     routes: {
+      cors: true,
       validate: {
         failAction: (req, h, err) => {
           throw err;

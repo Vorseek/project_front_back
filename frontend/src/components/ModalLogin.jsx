@@ -24,10 +24,11 @@ export default class ModalLogin extends React.Component {
 
   async login() {
     try {
-      await axios.post('http://localhost:3010/user/login', {
+      const response = await axios.post('http://localhost:3010/user/login', {
         email: this.state.email,
         password: this.state.password
       });
+      localStorage.setItem("user", response.data);
       this.props.onLoginSuccesses();
     } catch (e) {
       console.log(e);
