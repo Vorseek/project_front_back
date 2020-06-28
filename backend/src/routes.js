@@ -105,6 +105,7 @@ export default [
   },
   {
     config: {
+      auth: 'user',
       cors: {
         origin: ['*'],
         additionalHeaders: ['cache-control', 'x-requested-with']

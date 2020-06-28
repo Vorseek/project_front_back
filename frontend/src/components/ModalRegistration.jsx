@@ -42,7 +42,6 @@ export default class ModalLogin extends React.Component {
         surname: this.state.surname,
         birthDate: this.state.birthDate,
       });
-      this.props.onLoginSuccesses();
     } catch (e) {
       console.log(e);
     }

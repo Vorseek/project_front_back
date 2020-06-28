@@ -52,7 +52,7 @@ export default class Blog extends React.Component {
       this.setState({
         hideCreatePost: false,
       })
-      this.cardConstructot()
+      this.cardConstructor()
     }
   }
 
@@ -137,7 +137,7 @@ export default class Blog extends React.Component {
               <Switch>
                 <Route exact path="/blog" component={() => (
                   <PostsList key={this.state.posts._id} posts={this.state.posts}
-                             cardConstructot={this.cardConstructot}/>
+                             cardConstructor={this.cardConstructor}/>
                 )}/>
                 <Route exact path="/blog/post/:_id" render={(props) => {
                   const id = props.match.params._id
